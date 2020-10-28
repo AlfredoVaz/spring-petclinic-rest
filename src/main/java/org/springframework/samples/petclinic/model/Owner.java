@@ -65,6 +65,9 @@ public class Owner extends Person {
     @NotEmpty
     @Digits(fraction = 0, integer = 10)
     private String telephone;
+    
+    @Column(name = "active")
+    private boolean ownerActive;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "owner", fetch = FetchType.EAGER)
     private Set<Pet> pets;
@@ -93,7 +96,16 @@ public class Owner extends Person {
     public void setTelephone(String telephone) {
         this.telephone = telephone;
     }
-    @JsonIgnore
+
+	public boolean isOwnerActive() {
+		return ownerActive;
+	}
+
+	public void setOwnerActive(boolean ownerActive) {
+		this.ownerActive = ownerActive;
+	}
+
+	@JsonIgnore
     protected Set<Pet> getPetsInternal() {
         if (this.pets == null) {
             this.pets = new HashSet<>();
